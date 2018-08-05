@@ -77,7 +77,7 @@ client.on('message', message => {
       .setTimestamp();
 
       const esayMessage = args.join(" ");
-     .
+     
       message.delete().catch(O_o=>{});
    
 
