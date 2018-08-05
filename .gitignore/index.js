@@ -298,7 +298,7 @@ if(message.content.startsWith(prefix + "esay")) {
         let say = args.join(' ');
     if (!say) {return message.channel.send("`Tu dois écrire un message!`");
         }
-var say_embed = New Discord.RichEmbed();
+var say_embed = new Discord.RichEmbed()
 .setTitle('Say embed')
 .addField(say)
     message.channel.send(say_embed)
