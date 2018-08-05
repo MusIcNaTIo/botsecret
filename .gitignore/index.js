@@ -32,7 +32,7 @@ function play(connection, message) {
 client.on("ready", () => {
   console.log("Je suis connecté");
   client.user.setStatus("Online")
-  client.user.setActivity(`(g!aide) | Serveurs : ${client.guilds.size}, Membres : ${client.users.size} | V0.5`);
+  client.user.setActivity(`(g!aide) | Serveurs : ${client.guilds.size}, Membres : ${client.users.size} | V0.8`);
   client.guilds.get("469060312830574594").channels.get("475312148898119680").send(`Bot connecté et lancé sur **${client.guilds.size}** serveurs`)
   
 })
@@ -110,9 +110,9 @@ if(message.content === prefix + "testeur"){
       .setColor("RANDOM")
       .setTitle("**Commandes de fun et d'aide :**")
       .setDescription("Tout le monde peut utiliser ces commandes.")
-      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!statistiques` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch`")
+      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!statistiques` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch` `g!avatar`")
       .addField(":joy: Pour s'amuser :joy:", "\n `g!blagues` `g!vdm` `g!facepalm` `g!dog` `g!say` `g!cat`")
-      .addField(":game_die: Le hasard :game_die:", "\n `g!roll` `g!8ball` `g!coin`")
+      .addField(":game_die: Le hasard :game_die:", "\n `g!roll` `g!8ball` `g!coin` `g!pfc`")
       .addField(":musical_note: Musique :musical_note: : \n `g!play <lien>` `g!stop` `g!skip`")
       .addField(":couple: Amitié/Amour :couple:", ("\n`g!friendcheck` `g!lovecheck` `g!hatecheck`"))
       .addField(":e_mail: Channel inter-serveur :e_mail:", "`g!gt`")
@@ -128,9 +128,9 @@ if(message.content === prefix + "testeur"){
       .setColor("RANDOM")
       .setTitle("**Commandes de fun et d'aide :**")
       .setDescription("Tout le monde peut utiliser ces commandes.")
-      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!statistiques` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch`")
+      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!statistiques` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch` `g!avatar`")
       .addField(":joy: Pour s'amuser :joy:", "\n `g!blagues` `g!vdm` `g!facepalm` `g!dog` `g!say` `g!cat`")
-      .addField(":game_die: Le hasard :game_die:", "\n `g!roll` `g!8ball` `g!coin`")
+      .addField(":game_die: Le hasard :game_die:", "\n `g!roll` `g!8ball` `g!coin` `g!pfc`")
       .addField(":musical_note: Musique :musical_note:",   "\n`g!play <lien>` `g!stop` `g!skip`")
       .addField(":couple: Amitié/Amour :couple:", ("\n`g!friendcheck` `g!lovecheck` `g!hatecheck`"))
       .addField(":e_mail: Channel inter-serveur :e_mail:", "`g!gt`")
@@ -198,6 +198,22 @@ if(message.content === prefix + "testeur"){
    message.channel.send(info_embed)
    console.log("Les informations d'un serveur ont été trouvés avec succès!")
 }
+if(message.content.startsWith(prefix + "youtube" + "search")) {
+  let args = message.content.split(" ").slice(1);
+ let youtube = args.slice(1).join('+');
+ let link = `https://www.youtube.com/results?search_query=` + youtube;
+
+var yt_embed = new Discord.RichEmbed ()
+.setColor("RANDOM")
+.setTitle("__Ton lien__")
+.setDescription(":arrow_up:Pour accéder à ta recherche, clique sur le lien en hait :arrow_up: ")
+.addField(`Ta recherche sur Youtube porte sur : `, `**__${youtube}__**`)
+.setURL(link)
+.setFooter("Recherche YouTube")
+message.channel.send(yt_embed);
+console.log(`J'ai fait une recherche YouTube portant sur : ${youtube}`)
+}
+
 if(message.content === prefix + "membercount" && message.channel.type != "dm"){
 
   var mbr_embed = new Discord.RichEmbed()
@@ -475,7 +491,10 @@ if(message.content.startsWith(prefix + "ban") && message.channel.type != "dm") {
       "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100", 
     ];
     let reponse = (replys[Math.floor(Math.random() * replys.length)])
-  
+    let user1 = message.mentions.users.first();
+    let user2 = message.mentions.users.first();
+   
+   
     if(message.mentions.users.size === 0){
       return message.channel.send("Vous devez mentionnez deux utilisateurs, vous en avez mentionné 0 !")
     }
@@ -483,15 +502,14 @@ if(message.content.startsWith(prefix + "ban") && message.channel.type != "dm") {
       return message.channel.send("Vous devez mentionnez deux utilisateurs, vous n'en avez mentionné qu'un !")
     }
     if(message.mentions.users.size === 2){
-      return message.channel.send("Il y'a** " + reponse + "%** d'amour :heartpulse: entre les deux utilisateurs mentionnés")
+      return message.channel.send(`Il y'a **`  + reponse + `%** d'amour :heartpulse: entre ${user1.username} et ${user2.username}`)
     }
-    if(message.mentions.users.size === 3){
+    if(message.mentions.users.size >= 3){
       return message.channel.send("Deux utilisateurs maximum")
     }
      console.log("Lovecheck effectué avec succès")
   }
   if(message.content.startsWith(prefix + "hatecheck") && message.channel.type != "dm") {
-    if(!message.guild.member(message.author).hasPermission("SEND_MESSAGES")) return message.channel.send("Vous n'avez pas la permission de ban un utilisateur");
     var replys = [
       "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100", 
     ];
@@ -506,14 +524,13 @@ if(message.content.startsWith(prefix + "ban") && message.channel.type != "dm") {
     if(message.mentions.users.size === 2){
       return message.channel.send("Il y'a** " + reponse + "%** de haine :rage: entre les deux utilisateurs mentionnés")
     }
-    if(message.mentions.users.size === 3){
+    if(message.mentions.users.size >= 3){
       return message.channel.send("Deux utilisateurs maximum")
     }
      console.log("Lovecheck effectué avec succès")
   }
 
   if(message.content.startsWith(prefix + "friendcheck") && message.channel.type != "dm") {
-    if(!message.guild.member(message.author).hasPermission("SEND_MESSAGES")) return message.channel.send("Vous n'avez pas la permission de ban un utilisateur");
     var replys = [
       "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100", 
     ];
@@ -528,7 +545,7 @@ if(message.content.startsWith(prefix + "ban") && message.channel.type != "dm") {
     if(message.mentions.users.size === 2){
       return message.channel.send("Il y'a** " + reponse + "%** d'amitié :open_hands: entre les deux utilisateurs mentionnés")
     }
-    if(message.mentions.users.size === 3){
+    if(message.mentions.users.size >= 3){
       return message.channel.send("Deux utilisateurs maximum")
     }
     console.log("Friendcheck effectué avec succès")
@@ -551,6 +568,64 @@ if(message.content.startsWith(prefix + "ban") && message.channel.type != "dm") {
         message.channel.send(`**${mute.user.username}** est mute !`);
     })
     
+}
+if(message.content.startsWith(prefix + "pfc")) {
+  let args = message.content.split(" ").slice(1);
+  var choice = args[0];
+if (choice == "feuille" || choice == "f" || choice == "feuille") {
+  var numb = Math.floor(Math.random() * 99);
+  if (numb <= 33) {
+    var choice2 = "feuille";
+  } else if (numb => 66) {
+    var choice2 = "pierre";
+  } else if (numb = 34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65){
+    var choice2 = "ciseaux";
+  }
+  if (choice2 == "ciseaux") {
+    var response = "Je choisis **ciseaux** :scissors:! J'ai gagné!"
+  } else if (choice2 == "feuille") {
+    var response = "Je choisis **feuille** :page_facing_up:! Il y a égalité!"
+  } else if (choice2 == "pierre"){
+    var response = "Je choisis **pierre** :moyai:! Tu as gagné"
+  }
+  message.channel.send(response);
+} else if (choice == "pierre" || choice == "r") {
+  var numb = Math.floor(Math.random() * 99);
+  if (numb <= 33) {
+    var choice2 = "feuille";
+  } else if (numb => 66) {
+    var choice2 = "pierre";
+  } else if (numb = 34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65){
+    var choice2 = "ciseaux";
+  }
+  if (choice2 == "feuille") {
+    var response = "Je choisis **feuille** :page_facing_up:! J'ai gagné!"
+  } else if (choice2 == "pierre") {
+    var response = "Je choisis **pierre** :moyai:! Il y a égalité!"
+  } else if (choice2 == "ciseaux"){
+    var response = "Je choisis **ciseaux** :scissors:! Tu as gagné"
+  }
+  message.channel.send(response);
+} else if (choice == "ciseaux" || choice == "s") {
+  var numb = Math.floor(Math.random() * 99);
+  if (numb <= 33) {
+    var choice2 = "feuille";
+  } else if (numb => 66) {
+    var choice2 = "pierre";
+  } else if (numb = 34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65){
+    var choice2 = "ciseaux";
+  }
+  if (choice2 == "pierre") {
+    var response = "Je choisis **pierre** :moyai:! J'ai gagné!"
+  } else if (choice2 == "ciseaux") {
+    var response = "Je choisis **ciseaux** :scissors:! Il y a égalité!"
+  } else if (choice2 == "feuille"){
+    var response = "Je choisis **feuille** :page_facing_up:  ! Tu as gagné!"
+  }
+  message.channel.send(response);
+} else {
+  message.channel.send(`Utilisez g!pfc <pierre|feuille|ciseaux>`);
+}
 }
 
 if(message.content.startsWith(prefix + "unmute") && message.channel.type != "dm") {
@@ -852,10 +927,11 @@ if(!message.guild.member(message.author).hasPermission("MANAGE_GUILD")) return m
 	.setColor("RANDOM")
 	.setTitle("__Ton lien__")
 	.setDescription(":arrow_up: Clique sur le lien plus haut :arrow_up: ")
-	.addField(`Ta recherche Google porte sur : `, `**${google}**`)
+	.addField(`Ta recherche Google porte sur : `, `\n**${google}**`)
 	.setURL(link)
-	.setFooter("Google search")
-	message.channel.send(google_embed);
+  .setFooter("Google search")
+  message.channel.send(google_embed)
+
 	    console.log(`J'ai fait une recherche Google portant sur: ${google}`)
 }
 
@@ -867,7 +943,7 @@ if(message.content.startsWith(prefix + "reboot")) {
    message.react('🇴')
            message.react('🇰')
                .then(message => client.destroy())
-               .then(() => client.login(process.env.TOKEN))
+               .then(() => client.login("NDY5MDU0MDI2MDAxMDIyOTg2.Dki1yg.zfslLXgO5aqtdb3GFrtcc8kpBBU"))
     message.channel.send("**Je suis reboot.**")
     client.guilds.get("469060312830574594").channels.get("475312148898119680").send(`Bot connecté et lancé sur **${client.guilds.size}** serveurs`)
 } else {
@@ -999,6 +1075,23 @@ if(message.content.startsWith(prefix + "report")) {
    console.log("J'ai lancé la machine à sous!")
  }
 
+ if(message.content.startsWith(prefix + "avatar")) {
+	let args = message.content.split(" ").slice(1);
+	    if (args.join(" ") == "") {
+        message.reply("Tu dois mentionner un utilisateur");
+        return;
+    } else {
+        let user = message.mentions.users.first();
+        let image = user.displayAvatarURL; 
+        let embed = new Discord.RichEmbed()
+            .setTitle(`Voici l'avatar de : ${user.username}#${user.discriminator}`)
+            .setColor("RANDOM")
+            .setImage(image)
+	.setFooter(`Avatar de ${user.username}`)
+        message.channel.send(embed);
+    }
+}
+
 });
 
 client.on('message', message => {
@@ -1085,7 +1178,7 @@ if (!tte){
   ];
   let reponse = (replys[Math.floor(Math.random() * replys.length)])
   message.channel.send(reponse)
-  console.log("r!8ball a été demandée et a été effectuée correctement!")
+  console.log("g!8ball a été demandée et a été effectuée correctement!")
 }});
 client.on('message', message => {
   if (message.content.startsWith(prefix + "blague") && message.channel.type != "dm") {
@@ -1226,5 +1319,5 @@ console.log(`Un sondage a été envoyé correctement et son sujet est : ${sondag
 
 
 
-client.login(process.env.TOKEN);
+client.login("NDY5MDU0MDI2MDAxMDIyOTg2.Dki1yg.zfslLXgO5aqtdb3GFrtcc8kpBBU");
 
