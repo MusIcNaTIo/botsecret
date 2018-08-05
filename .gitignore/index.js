@@ -61,7 +61,29 @@ client.on("guildDelete", guild => {
 
 
 client.on('message', message => {
+      
+  if(message.content.startsWith === prefix + "esay") {
+    
 
+      const sayMessage = args.join(" ");
+
+      let servIcon = message.guild.iconURL;
+      let esayEmbed = new Discord.RichEmbed()
+      .setTitle("Say")
+      .setColor("RANDOM")
+      .setThumbnail(servIcon)
+      .setDescription(`Said by ${message.author}`)
+      .addField("Message", `${sayMessage}`)
+      .setTimestamp();
+
+      const esayMessage = args.join(" ");
+     .
+      message.delete().catch(O_o=>{});
+   
+
+      message.channel.send(esayEmbed);
+  }
+	
 if(message.content === prefix + "testeur"){
   message.channel.send(`${message.author.tag} a besoin de vous ! @everyone`)
 }
