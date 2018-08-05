@@ -62,28 +62,7 @@ client.on("guildDelete", guild => {
 
 client.on('message', message => {
       
-  if(message.content.startsWith === prefix + "esay") {
-    
 
-      const sayMessage = args.join(" ");
-
-      let servIcon = message.guild.iconURL;
-      let esayEmbed = new Discord.RichEmbed()
-      .setTitle("Say")
-      .setColor("RANDOM")
-      .setThumbnail(servIcon)
-      .setDescription(`Said by ${message.author}`)
-      .addField("Message", `${sayMessage}`)
-      .setTimestamp();
-
-      const esayMessage = args.join(" ");
-     
-      message.delete().catch(O_o=>{});
-   
-
-      message.channel.send(esayEmbed);
-  }
-	
 if(message.content === prefix + "testeur"){
   message.channel.send(`${message.author.tag} a besoin de vous ! @everyone`)
 }
@@ -311,6 +290,18 @@ if(message.content.startsWith(prefix + "say")) {
     if (!say) {return message.channel.send("`Tu dois écrire un message!`");
         }
     message.channel.send(say)
+    message.delete();
+    console.log(`J'ai dit" ${say} " et c'est @${message.author.tag} du serveur "${message.guild.name}" qui m'a dit de le dire`)
+}
+if(message.content.startsWith(prefix + "esay")) {
+  let args = message.content.split(" ").slice(1);
+        let say = args.join(' ');
+    if (!say) {return message.channel.send("`Tu dois écrire un message!`");
+        }
+var say_embed = New Discord.RichEmbed();
+.setTitle('Say embed')
+.addField(say)
+    message.channel.send(say_embed)
     message.delete();
     console.log(`J'ai dit" ${say} " et c'est @${message.author.tag} du serveur "${message.guild.name}" qui m'a dit de le dire`)
 }
