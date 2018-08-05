@@ -65,7 +65,9 @@ client.on('message', message => {
 if(message.content === prefix + "testeur"){
   message.channel.send(`${message.author.tag} a besoin de vous ! @everyone`)
 }
-
+if(message.content === prefix + "site"){
+message.channel.send("Le lien de mon site est : http://guysmowbot.ml/")
+}
   
     if(message.content === ".aide"){
     message.channel.send("Apprends à lire le statuts de jeu sal SEGPA ! https://cdn.discordapp.com/attachments/469482434665250816/469482449114497034/unknown.png")
@@ -116,7 +118,7 @@ if(message.content === prefix + "testeur"){
       .addField(":musical_note: Musique :musical_note: : \n `g!play <lien>` `g!stop` `g!skip`")
       .addField(":couple: Amitié/Amour :couple:", ("\n`g!friendcheck` `g!lovecheck` `g!hatecheck`"))
       .addField(":e_mail: Channel inter-serveur :e_mail:", "`g!gt`")
-      .addField(":id: A propos de moi :id:", "`g!support` `g!invites`")
+      .addField(":id: A propos de moi :id:", "`g!support` `g!invites` `g!site`")
       .addField("Autres :", "D'autres commandes arrivent prochainement :wink:"  )
       
       .setFooter("Mon créateur est NRV | Guysmow#5384")
@@ -134,7 +136,7 @@ if(message.content === prefix + "testeur"){
       .addField(":musical_note: Musique :musical_note:",   "\n`g!play <lien>` `g!stop` `g!skip`")
       .addField(":couple: Amitié/Amour :couple:", ("\n`g!friendcheck` `g!lovecheck` `g!hatecheck`"))
       .addField(":e_mail: Channel inter-serveur :e_mail:", "`g!gt`")
-      .addField(":id: A propos de moi :id:", "`g!support` `g!invites`")
+      .addField(":id: A propos de moi :id:", "`g!support` `g!invites` `g!site`")
       .addField("Autres :", "D'autres commandes arrivent prochainement :wink:"  )
       
       .setFooter("Mon créateur est NRV | Guysmow#5384")
