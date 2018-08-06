@@ -293,18 +293,6 @@ if(message.content.startsWith(prefix + "say")) {
     message.delete();
     console.log(`J'ai dit" ${say} " et c'est @${message.author.tag} du serveur "${message.guild.name}" qui m'a dit de le dire`)
 }
-if(message.content.startsWith(prefix + "esay")) {
-  let args = message.content.split(" ").slice(1);
-        let say = args.join(' ');
-    if (!say) {return message.channel.send("`Tu dois écrire un message!`");
-        }
-var say_embed = new Discord.RichEmbed()
-.setTitle('Say embed')
-.addField(say)
-    message.channel.send(say_embed)
-    message.delete();
-    console.log(`J'ai dit" ${say} " et c'est @${message.author.tag} du serveur "${message.guild.name}" qui m'a dit de le dire`)
-}
 
 
 if (!message.content.startsWith(prefix)) return;
@@ -456,9 +444,8 @@ if(message.content.startsWith(prefix + "kick") && message.channel.type != "dm"){
   });
 }
 }
-	
-	
-	if(message.content === prefix + "heure"){
+
+if(message.content === prefix + "heure"){
 var today = new Date()
 let Day = today.toString().split(" ")[0].concat("day");
 let Month = today.toString().split(" ")[1]
@@ -518,9 +505,7 @@ if(message.content.startsWith(prefix + "ban") && message.channel.type != "dm") {
       "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100", 
     ];
     let reponse = (replys[Math.floor(Math.random() * replys.length)])
-    let user1 = message.mentions.users.first();
-    let user2 = message.mentions.users.first();
-   
+    
    
     if(message.mentions.users.size === 0){
       return message.channel.send("Vous devez mentionnez deux utilisateurs, vous en avez mentionné 0 !")
@@ -529,7 +514,7 @@ if(message.content.startsWith(prefix + "ban") && message.channel.type != "dm") {
       return message.channel.send("Vous devez mentionnez deux utilisateurs, vous n'en avez mentionné qu'un !")
     }
     if(message.mentions.users.size === 2){
-      return message.channel.send(`Il y'a **`  + reponse + `%** d'amour :heartpulse: entre ${user1.username} et ${user2.username}`)
+      return message.channel.send(`Il y'a **`  + reponse + `%** d'amour :heartpulse: entre les deux utilisateurs !`)
     }
     if(message.mentions.users.size >= 3){
       return message.channel.send("Deux utilisateurs maximum")
@@ -1228,7 +1213,9 @@ client.on('message', message => {
   let reponse = (replys[Math.floor(Math.random() * replys.length)])
   message.channel.send(reponse)
   console.log("Blague effectué avec succès !")
-}});
+}
+
+});
 client.on('message', message => {
   if (message.content.startsWith(prefix + "vdm") && message.channel.type != "dm") {
 
@@ -1345,6 +1332,4 @@ console.log(`Un sondage a été envoyé correctement et son sujet est : ${sondag
 
 
 
-
 client.login("NDY5MDU0MDI2MDAxMDIyOTg2.Dki1yg.zfslLXgO5aqtdb3GFrtcc8kpBBU");
-
