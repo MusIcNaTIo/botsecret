@@ -80,9 +80,7 @@ try {
 
 }
 
-if(message.content === prefix + "testeur"){
-  message.channel.send(`${message.author.tag} a besoin de vous ! @everyone`)
-}
+
 if(message.content === prefix + "site"){
 message.channel.send("Le lien de mon site est : http://guysmowbot.ml/")
 }
