@@ -477,27 +477,6 @@ if(message.content === prefix + "coin"){
 
 
 
-
-if(message.content.startsWith(prefix + "ban") && message.channel.type != "dm") {
-  if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.channel.send("Vous n'avez pas la permission de ban un utilisateur");
-
-  if(message.mentions.users.size === 0){
-    return message.channel.send("Vous devez mentionnez un utilisateur :wink:")
-  }
-
-  var ban = message.guild.member(message.mentions.users.first());
-  if(!ban){
-    return message.channel.send("Je ne sais pas si l'utilisateur existe");
-
-  }
-  if(!message.guild.member(client.user).hasPermission("BAN_MEMBERS")){
-    return message.channel.send("Je n'ai pas la permission de ban cet utilisateur");
-  }
-  ban.ban().then(member => {
-    message.channel.send(`**${member.user.username}** est ban par **${message.author.username}** !`);
-  }
-
-  )}
   
   if(message.content.startsWith(prefix + "lovecheck") && message.channel.type != "dm") {
     var replys = [
