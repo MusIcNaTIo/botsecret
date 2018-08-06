@@ -70,11 +70,11 @@ if(message.content === prefix + "site"){
 message.channel.send("Le lien de mon site est : http://guysmowbot.ml/")
 }
 	if (message.content.startsWith(prefix + "avatar")) {
-        if (!args[0]) {
+ 
             message.channel.send(message.author.avatarURL);
             console.log (`Affichage d'un avatar ${message.author.id}`);
         }
-    }
+    
   
     if(message.content === ".aide"){
     message.channel.send("Apprends à lire le statuts de jeu sal SEGPA ! https://cdn.discordapp.com/attachments/469482434665250816/469482449114497034/unknown.png")
