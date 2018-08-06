@@ -923,29 +923,8 @@ if(!message.guild.member(message.author).hasPermission("MANAGE_GUILD")) return m
 	    console.log(`J'ai fait une recherche Google portant sur: ${google}`)
 }
 
-if(message.content.startsWith(prefix + "reboot")) {
-  if(message.author.id === "381116968327053313") {
-  console.log("Le bot s'est reset")
-  client.guilds.get("469060312830574594").channels.get("475312148898119680").send(`Bot éteint par ${message.author.tag}`)
-   message.channel.send("**Je reboot**")
-   message.react('🇴')
-           message.react('🇰')
-               .then(message => client.destroy())
-               .then(() => client.login(process.env.TOKEN))
-    message.channel.send("**Je suis reboot.**")
-    client.guilds.get("469060312830574594").channels.get("475312148898119680").send(`Bot connecté et lancé sur **${client.guilds.size}** serveurs`)
-} else {
-message.channel.send(":no_entry:  Tu n'es pas mon créateur et ne peut donc pas utiliser cette commande !  :no_entry:")
-}}
 
-if(message.content.startsWith(prefix + "destroy")) {
-  if(message.author.id === "381116968327053313") {
-  console.log("Le bot s'est reset")
-  client.guilds.get("469060312830574594").channels.get("475312148898119680").send(`Bot éteint par ${message.author.tag}`)
-   message.channel.send("**Je m'éteins**")
-   message.react('🇴')
-           message.react('🇰')
-               .then(message => client.destroy())}}
+
 
 if(message.content.startsWith(prefix + "report")) {
   let args = message.content.split(" ").slice(1);
