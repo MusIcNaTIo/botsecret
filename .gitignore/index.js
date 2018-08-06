@@ -1087,22 +1087,6 @@ if(message.content.startsWith(prefix + "report")) {
    console.log("J'ai lancé la machine à sous!")
  }
 
- if(message.content.startsWith(prefix + "avatar")) {
-	let args = message.content.split(" ").slice(1);
-	    if (args.join(" ") == "") {
-        message.reply("Tu dois mentionner un utilisateur");
-        return;
-    } else {
-        let user = message.mentions.users.first();
-        let image = user.displayAvatarURL; 
-        let embed = new Discord.RichEmbed()
-            .setTitle(`Voici l'avatar de : ${user.username}#${user.discriminator}`)
-            .setColor("RANDOM")
-            .setImage(image)
-	.setFooter(`Avatar de ${user.username}`)
-        message.channel.send(embed);
-    }
-}
 
 });
 
