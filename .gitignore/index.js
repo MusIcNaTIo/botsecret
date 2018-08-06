@@ -416,10 +416,14 @@ client.channels.findAll('name', 'guysmowtchat').map(channel => channel.send(tcha
   .setColor("#RANDOM")
   .setTitle(`Vos informations personnelles : ${message.author.username}`)
   .addField(`ID de l'utilisateur :id:`, msgauthor, true)
+  .addField('Discriminateur : ', message.author.discriminator, true)
+  .addField('Dernier message', message.author.lastMessage)
+  .addField('ID Dernier message', message.author.lastMessageID)
+  .addField('Statut de Présence', message.author.presence.status)
   .addField(`Date de création de l'utilisateur : `, userCreateDate[1] + ' ' + userCreateDate[2] + ' ' + userCreateDate[3])
-  .setThumbnail(message.author.avatarURL);
-  message.reply("Tu peux regarder tes messages privés, tu vient de reçevoir tes informations personnnelles !");
-  message.author.send(stats_embed);
+  .setThumbnail(message.author.avatarURL)
+  .setTimestamp()
+  message.channel.send(stats_embed);
   break;
 
   case "serverlist":
