@@ -452,6 +452,14 @@ if(message.content.startsWith(prefix + "kick") && message.channel.type != "dm"){
   });
 }
 }
+	
+	
+	if(message.content === prefix + "heure"){
+var today = new Date()
+let Day = today.toString().split(" ")[0].concat("day");
+let Month = today.toString().split(" ")[1]
+let Year = today.toString().split(" ")[3]
+message.channel.send(`Jour : \`${Day}\` \nMois : \`${Month}\` \nAnnée :\`${Year}\`\n\`\nHeure :\` \`${today.toString().split(" ")[4]}\``)}
 
 if(message.content === prefix + "coin"){
   const rolled = Math.floor(Math.random() * 2) + 1;
