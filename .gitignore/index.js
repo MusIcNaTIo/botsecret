@@ -8,7 +8,6 @@ var servers = {};
 
 const client = new Discord.Client();
 
-
 var prefix = "g!";
 
 function play(connection, message) {
@@ -61,7 +60,25 @@ client.on("guildDelete", guild => {
 
 
 client.on('message', message => {
-      
+  let sender = message.author;
+  let args1 = message.content.slice(prefix.lenght).trim().split(" ");
+  let cmd = args1.shift().toLowerCase();
+  if(sender.bot) return;
+  if(!message.content.startsWith(prefix)) return;
+try {
+
+  let commandFile = require(`./commands/${cmd}.js`)
+  commandFile.run(client, message, args);
+
+}catch(e){
+
+  console.log(e.message);
+
+}finally{
+
+  console.log(`${message.author.username} ran the command : ${cmd}`);
+
+}
 
 if(message.content === prefix + "testeur"){
   message.channel.send(`${message.author.tag} a besoin de vous ! @everyone`)
@@ -69,12 +86,6 @@ if(message.content === prefix + "testeur"){
 if(message.content === prefix + "site"){
 message.channel.send("Le lien de mon site est : http://guysmowbot.ml/")
 }
-	if (message.content.startsWith(prefix + "avatar")) {
- 
-            message.channel.send(message.author.avatarURL);
-            console.log (`Affichage d'un avatar ${message.author.id}`);
-        }
-    
   
     if(message.content === ".aide"){
     message.channel.send("Apprends à lire le statuts de jeu sal SEGPA ! https://cdn.discordapp.com/attachments/469482434665250816/469482449114497034/unknown.png")
@@ -119,7 +130,7 @@ message.channel.send("Le lien de mon site est : http://guysmowbot.ml/")
       .setColor("RANDOM")
       .setTitle("**Commandes de fun et d'aide :**")
       .setDescription("Tout le monde peut utiliser ces commandes.")
-      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!userinfo` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch` `g!avatar`")
+      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!statistiques` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch` `g!avatar`")
       .addField(":joy: Pour s'amuser :joy:", "\n `g!blagues` `g!vdm` `g!facepalm` `g!dog` `g!say` `g!cat`")
       .addField(":game_die: Le hasard :game_die:", "\n `g!roll` `g!8ball` `g!coin` `g!pfc`")
       .addField(":musical_note: Musique :musical_note: : \n `g!play <lien>` `g!stop` `g!skip`")
@@ -137,7 +148,7 @@ message.channel.send("Le lien de mon site est : http://guysmowbot.ml/")
       .setColor("RANDOM")
       .setTitle("**Commandes de fun et d'aide :**")
       .setDescription("Tout le monde peut utiliser ces commandes.")
-      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!userinfo` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch` `g!avatar`")
+      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!statistiques` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch` `g!avatar`")
       .addField(":joy: Pour s'amuser :joy:", "\n `g!blagues` `g!vdm` `g!facepalm` `g!dog` `g!say` `g!cat`")
       .addField(":game_die: Le hasard :game_die:", "\n `g!roll` `g!8ball` `g!coin` `g!pfc`")
       .addField(":musical_note: Musique :musical_note:",   "\n`g!play <lien>` `g!stop` `g!skip`")
@@ -234,24 +245,6 @@ if(message.content === prefix + "membercount" && message.channel.type != "dm"){
   message.channel.send(mbr_embed)
 }
 
-if(message.content === prefix + "ping") {
-  var start = Date.now(); message.channel.send( 'Pong ! ').then(message => { 
-var diff = (Date.now() - start); 
-var API = (client.ping).toFixed(2)
-    
-    var embed = new Discord.RichEmbed()
-    .setTitle(`🏓 Pong!`)
-    .setColor(0xff2f2f)
-    .addField("📶 Latence du bot :", `${diff}ms`, true)
-    .addField("💻 Latence de l'API : ", `${API}ms`, true)
-    message.edit(embed);
-message.edit(embed);
-    message.edit(embed);
-message.edit(embed);
-  console.log("Le bot a trouvé son ping")
-});
-
-}
 
 if(message.content === prefix + "channelcount" && message.channel.type != "dm"){
   message.channel.send(`Sur le serveur **${message.guild.name}**, il y'a **${message.guild.channels.size}** channels vocaux/écrits !`)
@@ -400,7 +393,7 @@ client.channels.findAll('name', 'guysmowtchat').map(channel => channel.send(tcha
 
 
 
-  case "userinfo" :
+  case "statistiques" :
 
   var userCreateDate = message.author.createdAt.toString().split(" ");
   var msgauthor = message.author.id;
@@ -961,7 +954,7 @@ if(message.content.startsWith(prefix + "reboot")) {
    message.react('🇴')
            message.react('🇰')
                .then(message => client.destroy())
-               .then(() => client.login("NDY5MDU0MDI2MDAxMDIyOTg2.Dki1yg.zfslLXgO5aqtdb3GFrtcc8kpBBU"))
+               .then(() => client.login(process.env.TOKEN))
     message.channel.send("**Je suis reboot.**")
     client.guilds.get("469060312830574594").channels.get("475312148898119680").send(`Bot connecté et lancé sur **${client.guilds.size}** serveurs`)
 } else {
@@ -1093,6 +1086,22 @@ if(message.content.startsWith(prefix + "report")) {
    console.log("J'ai lancé la machine à sous!")
  }
 
+ if(message.content.startsWith(prefix + "avatar")) {
+	let args = message.content.split(" ").slice(1);
+	    if (args.join(" ") == "") {
+        message.reply("Tu dois mentionner un utilisateur");
+        return;
+    } else {
+        let user = message.mentions.users.first();
+        let image = user.displayAvatarURL; 
+        let embed = new Discord.RichEmbed()
+            .setTitle(`Voici l'avatar de : ${user.username}#${user.discriminator}`)
+            .setColor("RANDOM")
+            .setImage(image)
+	.setFooter(`Avatar de ${user.username}`)
+        message.channel.send(embed);
+    }
+}
 
 });
 
@@ -1321,5 +1330,4 @@ console.log(`Un sondage a été envoyé correctement et son sujet est : ${sondag
 
 
 
-
-client.login("NDY5MDU0MDI2MDAxMDIyOTg2.Dki1yg.zfslLXgO5aqtdb3GFrtcc8kpBBU");
+client.login(process.env.TOKEN);
