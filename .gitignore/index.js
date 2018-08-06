@@ -394,7 +394,7 @@ client.channels.findAll('name', 'guysmowtchat').map(channel => channel.send(tcha
 
 
 
-  case "statistiques" :
+  case "userinfo" :
 
   var userCreateDate = message.author.createdAt.toString().split(" ");
   var msgauthor = message.author.id;
