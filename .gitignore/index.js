@@ -53,7 +53,7 @@ client.on("guildDelete", guild => {
   .setAuthor(client.user.username, client.user.avatarURL)
   .setColor("RANDOM")
   .setTitle(`🤖 ADIEU SERVEUR 🤖`)
-  .setDescription(`**On m'a ajouté sur le serveur :**: ${guild.name}\n**Son id est :**: ${guild.id}\n**Et il a** : ${guild.memberCount} membres!`)
+  .setDescription(`**On m'a retiré du serveur :**: ${guild.name}\n**Son id est :**: ${guild.id}\n**Et il a** : ${guild.memberCount} membres!`)
   client.guilds.get("469060312830574594").channels.get("475324562452774924").send(embed)
 });
 
@@ -128,13 +128,14 @@ message.channel.send("Le lien de mon site est : http://guysmowbot.ml/")
       .setColor("RANDOM")
       .setTitle("**Commandes de fun et d'aide :**")
       .setDescription("Tout le monde peut utiliser ces commandes.")
-      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!statistiques` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch` `g!avatar`")
-      .addField(":joy: Pour s'amuser :joy:", "\n `g!blagues` `g!vdm` `g!facepalm` `g!dog` `g!say` `g!cat`")
+      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!statistiques` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch` `g!avatar` `g!sondage` `g!heure`")
+      .addField(":joy: Pour s'amuser :joy:", "\n `g!blagues` `g!vdm` `g!facepalm` `g!dog` `g!say` `g!cat` `g!trad`")
       .addField(":game_die: Le hasard :game_die:", "\n `g!roll` `g!8ball` `g!coin` `g!pfc`")
-      .addField(":musical_note: Musique :musical_note: : \n `g!play <lien>` `g!stop` `g!skip`")
+      .addField(":musical_note: Musique :musical_note: :", "`g!play <lien>` `g!stop` `g!skip`")
       .addField(":couple: Amitié/Amour :couple:", ("\n`g!friendcheck` `g!lovecheck` `g!hatecheck`"))
       .addField(":e_mail: Channel inter-serveur :e_mail:", "`g!gt`")
       .addField(":id: A propos de moi :id:", "`g!support` `g!invites` `g!site`")
+      .addField(":x: Commandes interdites :x:", "`g!destroy` `g!reboot`")
       .addField("Autres :", "D'autres commandes arrivent prochainement :wink:"  )
       
       .setFooter("Mon créateur est NRV | Guysmow#5384")
@@ -146,17 +147,18 @@ message.channel.send("Le lien de mon site est : http://guysmowbot.ml/")
       .setColor("RANDOM")
       .setTitle("**Commandes de fun et d'aide :**")
       .setDescription("Tout le monde peut utiliser ces commandes.")
-      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!statistiques` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch` `g!avatar`")
-      .addField(":joy: Pour s'amuser :joy:", "\n `g!blagues` `g!vdm` `g!facepalm` `g!dog` `g!say` `g!cat`")
+      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!statistiques` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch` `g!avatar` `g!sondage` `g!heure`")
+      .addField(":joy: Pour s'amuser :joy:", "\n `g!blagues` `g!vdm` `g!facepalm` `g!dog` `g!say` `g!cat` `g!trad`")
       .addField(":game_die: Le hasard :game_die:", "\n `g!roll` `g!8ball` `g!coin` `g!pfc`")
-      .addField(":musical_note: Musique :musical_note:",   "\n`g!play <lien>` `g!stop` `g!skip`")
+      .addField(":musical_note: Musique :musical_note: :", "`g!play <lien>` `g!stop` `g!skip`")
       .addField(":couple: Amitié/Amour :couple:", ("\n`g!friendcheck` `g!lovecheck` `g!hatecheck`"))
       .addField(":e_mail: Channel inter-serveur :e_mail:", "`g!gt`")
       .addField(":id: A propos de moi :id:", "`g!support` `g!invites` `g!site`")
+      .addField(":x: Commandes interdites :x:", "`g!destroy` `g!reboot`")
       .addField("Autres :", "D'autres commandes arrivent prochainement :wink:"  )
       
       .setFooter("Mon créateur est NRV | Guysmow#5384")
-      message.channel.send(help_embed);
+      message.channel.send(helpfunmp_embed);
       console.log("Menu d'aide fun ouvert avec succès")
     }
     if(message.content === prefix + "aide_mod" && message.channel.type != "dm") {
@@ -925,6 +927,8 @@ if(!message.guild.member(message.author).hasPermission("MANAGE_GUILD")) return m
 
 
 
+if(message.content.startsWith(prefix + "destroy")) {
+  }
 
 if(message.content.startsWith(prefix + "report")) {
   let args = message.content.split(" ").slice(1);
