@@ -4,6 +4,7 @@
   "description": "",
   "main": "Index.js",
   "dependencies": {
+    "ascii-art": "^1.4.3",
     "discord.js": "^11.3.2",
     "discord.js-commando": "^0.10.0",
     "ffmpeg": "0.0.4",
