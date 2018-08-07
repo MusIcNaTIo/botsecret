@@ -320,74 +320,7 @@ client.channels.findAll('name', 'guysmowtchat').map(channel => channel.send(tcha
 
     break;
 
-    case "play":
-
-    if (!args[1]) {
-
-    message.channel.send("Tu dois m’indiquer un lien YouTube"); 
-
-    return;
-
-  }
-
-    if(!message.member.voiceChannel) {
-
-    message.channel.send(":x: Tu dois être dans un salon vocal"); 
-
-    return;
-
-  }
-
-
-    if(!servers[message.guild.id]) servers[message.guild.id] = {
-
-    queue: []
     
-    
-  };
-
-
-  var server = servers[message.guild.id];
-
-
-  server.queue.push(args[1]);
-
-  if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
-
-  play(connection, message) 
-  message.channel.send("J'ajoute cette musique à la queue")
-
-  });
-
-  break; 
-
-  case "skip":
-
-    if(!message.member.voiceChannel) {
-
-    message.channel.send(":x: Tu dois être dans un salon vocal"); 
-
-    return;
-
-  }
-
-    var server = servers[message.guild.id];
-
-    if(server.dispatcher) server.dispatcher.end();
-    message.channel.send("Chanson skippée")
-
-    break;
-
-  case "stop":
-
-    if(!message.member.voiceChannel) 
-    
-    return message.channel.send(":x: Tu dois être dans un salon vocal");
-
-    message.member.voiceChannel.leave();
-    message.channel.send("J'ai quitté le salon vocal.")
-
-    break;
 
     
 
