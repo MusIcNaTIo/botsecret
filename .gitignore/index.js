@@ -893,10 +893,6 @@ if(!message.guild.member(message.author).hasPermission("MANAGE_GUILD")) return m
 }
 
 
-
-if(message.content.startsWith(prefix + "destroy")) {
-  }
-
 if(message.content.startsWith(prefix + "report")) {
   let args = message.content.split(" ").slice(1);
      var bug = args.slice(0).join(" ")
