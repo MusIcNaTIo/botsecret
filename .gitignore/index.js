@@ -3,11 +3,11 @@ const Discord = require('discord.js');
 const ytdl = require('ytdl-core');
 
 const queue = new Map();
-
+const fs = require("fs");
 var servers = {};
 
 const client = new Discord.Client();
-
+let coins = require("./commands/storage/coins.json");
 var prefix = "g!";
 
 function play(connection, message) {
@@ -63,6 +63,10 @@ client.on('message', message => {
   let sender = message.author;
   let args1 = message.content.slice(prefix.lenght).trim().split(" ");
   let cmd = args1.shift().toLowerCase();
+  if(message.author.bot)return;
+  if (message.channel.type === "dm") return message.channel.send(":x: Je n'accepte pas les mp car cela cause des bugs!");
+    if (!message.content.startsWith(prefix)) return;
+  
   if(sender.bot) return;
   if(!message.content.startsWith(prefix)) return;
 try {
@@ -79,6 +83,34 @@ try {
   console.log(`${message.author.username} ran the command : ${cmd}`);
 
 }
+
+if(!coins[message.author.id]){
+  var embed = new Discord.RichEmbed()
+  .setColor("#2301FE")
+  .setTitle("Nouvelle personne dans la base de données")
+  .setDescription(`${message.author.username}est entré dans la base de donnée ! `)
+  .setFooter("g!coins, pour voir le montant sur votre banque !")
+  message.channel.send(embed)
+coins[message.author.id] = {
+coins: 0
+}};
+let coinAmt = Math.floor(Math.random() * 2) + 1;
+	let baseAmt = Math.floor(Math.random() * 2) + 1;
+	
+	if(coinAmt === baseAmt){
+	coins[message.author.id] = {
+	coins: coins[message.author.id].coins + coinAmt
+	};
+	const fs = require("fs");
+fs.writeFile("./commands/storage/coins.json", JSON.stringify(coins), (err)=>console.log(err));
+		let coin_embed = new Discord.RichEmbed()
+		.setColor("RANDOM")
+		.setTitle("Gain d'argent")
+		.setDescription(`Félicitation **${message.author.username}**!\nTu viens de gagner **${coinAmt}** money 💸 ! `)
+		.setFooter("g!coins pour voir le montant!")
+		message.channel.send(coin_embed).then(message => {message.delete(10000)});
+	}  
+
 
 
 if(message.content === prefix + "site"){
@@ -129,12 +161,13 @@ message.channel.send("Le lien de mon site est : http://guysmowbot.ml/")
       .setColor("RANDOM")
       .setTitle("**Commandes de fun et d'aide :**")
       .setDescription("Tout le monde peut utiliser ces commandes.")
-      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!statistiques` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch` `g!avatar` `g!sondage` `g!heure`")
+      .addField(":tools: Les utilitaires :tools:", "\n `g!ping` `g!statistiques` `g!serverinfo` `g!membercount` `g!channelcount` `g!googlesearch` `g!avatar` `g!sondage` `g!heure` `g!weather` `g!topinvites`")
       .addField(":joy: Pour s'amuser :joy:", "\n `g!blagues` `g!vdm` `g!facepalm` `g!dog` `g!say` `g!cat` `g!trad`")
       .addField(":game_die: Le hasard :game_die:", "\n `g!roll` `g!8ball` `g!coin` `g!pfc`")
       .addField(":musical_note: Musique :musical_note: :", "`g!play <lien>` `g!stop` `g!skip`")
       .addField(":couple: Amitié/Amour :couple:", ("\n`g!friendcheck` `g!lovecheck` `g!hatecheck`"))
       .addField(":e_mail: Channel inter-serveur :e_mail:", "`g!gt`")
+      .addField(":moneybag: Economie :moneybag:", "`g!coins`")
       .addField(":id: A propos de moi :id:", "`g!support` `g!invites` `g!site`")
       .addField(":x: Commandes interdites :x:", "`g!destroy` `g!reboot`")
       .addField("Autres :", "D'autres commandes arrivent prochainement :wink:"  )
@@ -167,18 +200,19 @@ message.channel.send("Le lien de mon site est : http://guysmowbot.ml/")
       .setColor("RANDOM")
       .setTitle("Commandes de modération :  ")
       .setDescription("Les commandes suivantes nécéssitents des permissions spéciales")
-      .addField("!permissions", "Voir les permissions requises pour effectuer une commande de modération")
-      .addField("!clear <nombre de messages>", "Supprime le nombre de messages mis après la commande, néccésite la permission de supprimer les messages (Max 100 messages)")
+      .addField("g!permissions", "Voir les permissions requises pour effectuer une commande de modération")
+      .addField("g!clear <nombre de messages>", "Supprime le nombre de messages mis après la commande, néccésite la permission de supprimer les messages (Max 100 messages)")
       .setThumbnail(message.author.avatarURL)
-      .addField("g!mute <@user>", "Rend un joueur muet")
-      .addField("g!unmute <@user>", "Permet d'unmute un joueur")
+      .addField("g!tempmute", "Mute temporairement une personne")
       .addField("g!kick <@user>", "Avec les permissions nécéssaires, vous pouvez exclure quelqu'un")
+      .addField('g!addrole/g!removerole <@user> <role>')
       .addField("g!ban <@user>", "Avec les permissions nécéssaires, vous pouvez bannir quelqu'un")   
       .addField("g!warn <@user> <raison>", "Avertir quelqu'un")
       .addField("g!seewarns <@user>", "Voir le nombre de warns d'un utilisateur ainsi que la raison de ces warns")
       .addField("g!deletewarns <@user> <Numéro du Warn>", "Permet de supprimer 1 avertissement")
       .setFooter("Mon créateur est NRV | Guysmow#5384")
-      message.channel.send(mod_embed);
+      message.author.send(mod_embed)
+      message.channel.send("Tu as reçu l'aide des commandes de modération en Message Privé.");
       console.log("Menu d'aide modo ouvert avec succès")
     
     }
@@ -190,9 +224,9 @@ message.channel.send("Le lien de mon site est : http://guysmowbot.ml/")
       .addField("g!permissions", "Voir les permissions requises pour effectuer une commande de modération")
       .addField("g!clear <nombre de messages>", "Supprime le nombre de messages mis après la commande, néccésite la permission de supprimer les messages (Max 100 messages)")
       .setThumbnail(message.author.avatarURL)
-      .addField("g!mute <@user>", "Rend un joueur muet")
-      .addField("g!unmute <@user>", "Permet d'unmute un joueur")
+      .addField("g!tempmute", "Mute temporairement une personne")
       .addField("g!kick <@user>", "Avec les permissions nécéssaires, vous pouvez exclure quelqu'un")
+      .addField('g!addrole/g!removerole <@user> <role>')
       .addField("g!ban <@user>", "Avec les permissions nécéssaires, vous pouvez bannir quelqu'un")   
       .addField("g!warn <@user> <raison>", "Avertir quelqu'un")
       .addField("g!seewarns <@user>", "Voir le nombre de warns d'un utilisateur ainsi que la raison de ces warns")
@@ -257,8 +291,7 @@ if(message.content === prefix + "permissions" && message.channel.type != "dm") {
   .setTitle("**Permisions nécéssaires pour utiliser les commandes de modération**")  
   .addField("g!clear <nombre de messages>", "Permissions nécéssaire : `MANAGE_MESSAGE`")
   .setThumbnail(message.author.avatarURL)
-  .addField("g!mute <@user>", "Permission nécéssaire : `ADMINISTRATOR`")
-  .addField("g!unmute <@user>", "Permission nécéssaire : `ADMINISTRATOR`")
+  .addField('g!tempmute <@user> <temps>', 'Permissions nécéssaires : `MANAGE_MESSAGES` ')
   .addField("g!kick <@user>", "Permission nécéssaire : `KICK_MEMBERS`")
   .addField("g!ban <@user>", "Permission nécéssaire : `BAN_MEMBERS`")    
   .addField("g!warn <@user> <raison>", "Permission nécéssaire : `MANAGE_GUILD`")
